@@ -55,4 +55,10 @@ class User extends Authenticatable
     {
         return $date->format('d/m/Y H:i:s');
     }
+
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
 }

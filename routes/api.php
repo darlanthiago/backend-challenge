@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,5 +37,22 @@ Route::group(['prefix' => 'auth'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
 
         Route::delete('/logout', [AuthController::class, 'destroy']);
+    });
+});
+
+
+
+Route::group(['prefix' => 'wallet'], function () {
+
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+
+        Route::get('/', [WalletController::class, 'show']);
+    });
+});
+
+Route::group(['prefix' => 'transaction'], function () {
+
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('/', [TransactionController::class, 'store'])->middleware('sanctum.abilities:user');
     });
 });

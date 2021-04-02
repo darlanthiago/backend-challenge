@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -30,7 +31,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8|max:15',
-            'document' => 'required|string|unique:users,document',
+            'document' => 'required|string|unique:users,document|min:11|max:18',
             'user_type' => 'in:user,store'
         ]);
 
@@ -45,6 +46,10 @@ class UserController extends Controller
         $user->document = $document;
 
         $user->saveOrFail();
+
+        $wallet = new Wallet();
+        $wallet->user_id = $user->id;
+        $wallet->saveOrFail();
 
         return response()->json($user, 201);
     }
