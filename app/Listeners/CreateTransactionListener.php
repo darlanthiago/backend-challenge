@@ -2,7 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Events\NotificationTransaction;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Models\Wallet;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -64,6 +66,10 @@ class CreateTransactionListener
                 $transaction->saveOrFail();
 
                 // Notificação de sucesso
+
+                $payeer = User::find($event->transaction->payeer_id);
+
+                event(new NotificationTransaction($transaction, $payeer));
 
                 Log::debug('Sucesso');
             }
