@@ -1,0 +1,9 @@
+apps:
+  - name: "queue:process"
+    script: artisan
+    watch: false
+    interpreter: php
+    args: "queue:work --tries=3 --timeout=5 --sleep=2"
+    restart_delay: 3000
+    error_file: ./storage/logs/queue.error.log
+    out_file: ./storage/logs/queue.out.log
