@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\CreateTransactionEvent;
+use App\Events\NotificationTransaction;
 use App\Listeners\CreateTransactionListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +23,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         CreateTransactionEvent::class => [
             CreateTransactionListener::class
-        ]
+        ],
+        //NotificationTransaction::class => []
     ];
 
     /**

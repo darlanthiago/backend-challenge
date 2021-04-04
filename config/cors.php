@@ -15,20 +15,58 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    /*
+     * You can enable CORS for 1 or multiple paths.
+     * Example: ['api/*']
+     */
+    'paths' => [
+        'sanctum/csrf-cookie',
+        'login',
+        'api/*'
+    ],
 
-    'allowed_methods' => ['*'],
+    /*
+    * Matches the request method. `[*]` allows all methods.
+    */
+    'allowed_methods' => [
+        'POST',
+        'GET',
+        'OPTIONS',
+        'PUT',
+        'PATCH',
+        'DELETE',
+    ],
 
-    'allowed_origins' => ['*'],
+    /*
+     * Matches the request origin. `[*]` allows all origins.
+     */
+    'allowed_origins' => [getenv('CORS')],
 
-    'allowed_origins_patterns' => [],
+    /*
+     * Matches the request origin with, similar to `Request::is()`
+     */
+    'allowed_origins_patterns' => [getenv('CORS_ALLOW')],
 
-    'allowed_headers' => ['*'],
+    /*
+     * Sets the Access-Control-Allow-Headers response header. `[*]` allows all headers.
+     */
+    'allowed_headers' => [
+        '*'
+    ],
 
-    'exposed_headers' => [],
+    /*
+     * Sets the Access-Control-Expose-Headers response header.
+     */
+    'exposed_headers' => false,
 
-    'max_age' => 0,
+    /*
+     * Sets the Access-Control-Max-Age response header.
+     */
+    'max_age' => false,
 
-    'supports_credentials' => false,
+    /*
+     * Sets the Access-Control-Allow-Credentials header.
+     */
+    'supports_credentials' => true,
 
 ];
